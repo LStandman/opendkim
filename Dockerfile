@@ -1,8 +1,8 @@
-FROM alpine:latest
+FROM debian:testing-slim
 
-RUN apk --no-cache add \
-		dnssec-root \
-		opendkim
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    opendkim \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /run/opendkim && chown opendkim:opendkim /run/opendkim
 
